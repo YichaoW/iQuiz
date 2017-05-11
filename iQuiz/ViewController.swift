@@ -11,8 +11,7 @@ import UIKit
 class ViewController: UITableViewController {
 
     let subjects = ["Mathematics", "Marvel Super Heroes", "Science"]
-
-
+    
     @IBAction func settingPressed(_ sender: Any) {
         let alert = UIAlertController(title: "Setting", message: "Settings go here", preferredStyle:UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -22,9 +21,8 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.tableFooterView = UIView()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
 
+    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -44,11 +42,18 @@ class ViewController: UITableViewController {
         return cell
       
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "QuestionViewController") as! QuestionViewController
+
+        self.navigationController?.pushViewController(vc, animated: true)
+
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
 }
 
