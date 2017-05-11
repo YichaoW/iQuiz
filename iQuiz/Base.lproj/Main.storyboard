@@ -204,6 +204,10 @@
                             <constraint firstItem="bFl-Wv-fJX" firstAttribute="leading" secondItem="hAH-AS-flK" secondAttribute="leadingMargin" constant="20" id="xNJ-eW-xBf"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="caText" destination="uXN-sW-34l" id="NQC-Ig-oWr"/>
+                        <outlet property="rwText" destination="3Yi-Rt-hQV" id="jpR-nY-eA3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xzQ-JR-v6g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

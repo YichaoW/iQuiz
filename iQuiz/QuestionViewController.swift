@@ -10,6 +10,7 @@ import UIKit
 
 class QuestionViewController: UIViewController {
     var currentQuestion = 1
+    var score = 0
     var selected = ""
     
     @IBOutlet weak var questionText: UILabel!
@@ -32,6 +33,8 @@ class QuestionViewController: UIViewController {
         if (selected != "") {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "AnswerViewController") as! AnswerViewController
             vc.currentQuestion = currentQuestion
+            vc.score = score
+            vc.answer = selected
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

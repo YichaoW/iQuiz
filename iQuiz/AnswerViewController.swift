@@ -13,14 +13,19 @@ class AnswerViewController: UIViewController {
     var totalQuestion = 2
     var currentQuestion = 1
     var score = 0
-
+    var correctAnswer = "Answer 1"
+    var answer = ""
+    
+    @IBOutlet weak var caText: UILabel!
+    @IBOutlet weak var rwText: UILabel!
+    
     @IBAction func nextPressed(_ sender: Any) {
-        print(currentQuestion)
         if currentQuestion < totalQuestion {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "QuestionViewController") as! QuestionViewController
             self.navigationController?.pushViewController(vc, animated: true)
             currentQuestion += 1
             vc.currentQuestion = currentQuestion
+            vc.score = score
         } else {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "FinishViewController") as! FinishViewController
             vc.totalscore = totalQuestion
@@ -36,7 +41,13 @@ class AnswerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        caText.text = correctAnswer
+        if (answer == correctAnswer) {
+            score += 1
+            rwText.text = "Right!"
+        } else {
+            rwText.text = "Wrong!"
+        }
         // Do any additional setup after loading the view.
     }
 
