@@ -30,7 +30,34 @@ class QuestionViewController: UIViewController {
     }
 
     @IBAction func submitPressed(_ sender: UIButton) {
-        if (selected != "") {
+        nextScreen()
+    }
+    
+    @IBAction func backPressed(_ sender: UIButton) {
+        homeScreen()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(QuestionViewController.swipedR(_:)))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(QuestionViewController.swipedL(_:)))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.view.addGestureRecognizer(swipeLeft)
+    }
+
+    func swipedR(_ gesture: UIGestureRecognizer) {
+        nextScreen()
+    }
+    
+    func swipedL(_ gesture: UIGestureRecognizer) {
+        homeScreen()
+    }
+    
+    func nextScreen() {
+        if selected != "" {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "AnswerViewController") as! AnswerViewController
             vc.currentQuestion = currentQuestion
             vc.score = score
@@ -39,16 +66,11 @@ class QuestionViewController: UIViewController {
         }
     }
     
-    @IBAction func backPressed(_ sender: UIButton) {
+    func homeScreen() {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

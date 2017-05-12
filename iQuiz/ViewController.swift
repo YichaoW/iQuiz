@@ -21,9 +21,21 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.tableFooterView = UIView()
-
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipedR(_:)))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
+        
     }
-
+    
+    func swipedR(_ gesture: UIGestureRecognizer) {
+        nextScreen()
+    }
+    
+    func nextScreen() {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "QuestionViewController") as! QuestionViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -44,10 +56,7 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "QuestionViewController") as! QuestionViewController
-
-        self.navigationController?.pushViewController(vc, animated: true)
-
+        nextScreen()
     }
 
     override func didReceiveMemoryWarning() {

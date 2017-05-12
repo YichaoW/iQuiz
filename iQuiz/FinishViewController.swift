@@ -16,13 +16,11 @@ class FinishViewController: UIViewController {
     @IBOutlet weak var score: UILabel!
     
     @IBAction func nextPressed(_ sender: Any) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-        self.navigationController?.pushViewController(vc, animated: true)    
+        nextScreen()
     }
     
     @IBAction func backPressed(_ sender: Any) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-        self.navigationController?.pushViewController(vc, animated: true)
+        nextScreen()
     }
     
     override func viewDidLoad() {
@@ -35,8 +33,28 @@ class FinishViewController: UIViewController {
         } else {
             descript.text = "Almost!"
         }
-        // Do any additional setup after loading the view.
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(AnswerViewController.swipedR(_:)))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(AnswerViewController.swipedL(_:)))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.view.addGestureRecognizer(swipeLeft)
     }
+
+    func swipedR(_ gesture: UIGestureRecognizer) {
+        nextScreen()
+    }
+    
+    func swipedL(_ gesture: UIGestureRecognizer) {
+        nextScreen()
+    }
+    
+    func nextScreen() {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

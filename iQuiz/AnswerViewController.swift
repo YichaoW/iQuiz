@@ -20,6 +20,40 @@ class AnswerViewController: UIViewController {
     @IBOutlet weak var rwText: UILabel!
     
     @IBAction func nextPressed(_ sender: Any) {
+        nextScreen()
+    }
+    
+    @IBAction func backPressed(_ sender: Any) {
+        homeScreen()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        caText.text = correctAnswer
+        if (answer == correctAnswer) {
+            score += 1
+            rwText.text = "Right!"
+        } else {
+            rwText.text = "Wrong!"
+        }
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(AnswerViewController.swipedR(_:)))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(AnswerViewController.swipedL(_:)))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.view.addGestureRecognizer(swipeLeft)
+    }
+    
+    func swipedR(_ gesture: UIGestureRecognizer) {
+        nextScreen()
+    }
+    
+    func swipedL(_ gesture: UIGestureRecognizer) {
+        homeScreen()
+    }
+    
+    func nextScreen() {
         if currentQuestion < totalQuestion {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "QuestionViewController") as! QuestionViewController
             self.navigationController?.pushViewController(vc, animated: true)
@@ -34,21 +68,9 @@ class AnswerViewController: UIViewController {
         }
     }
     
-    @IBAction func backPressed(_ sender: Any) {
+    func homeScreen() {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
         self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        caText.text = correctAnswer
-        if (answer == correctAnswer) {
-            score += 1
-            rwText.text = "Right!"
-        } else {
-            rwText.text = "Wrong!"
-        }
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
